@@ -18,6 +18,8 @@ class Alert
 
 	protected ?Model $model = null;
 
+	protected ?string $entity = null;
+
 	protected array $langParameters = [];
 
 	private function __construct(string $type)
@@ -54,6 +56,15 @@ class Alert
 	{
 		$alert = new static('success');
 		$alert->model = $model;
+		$alert->langParameters = $langParameters;
+
+		return $alert;
+	}
+
+	public static function for(string $entity, array $langParameters = []): static
+	{
+		$alert = new static('success');
+		$alert->entity = Str::snake($entity);
 		$alert->langParameters = $langParameters;
 
 		return $alert;
@@ -150,6 +161,21 @@ class Alert
 		}
 	}
 
+	protected function customizeAlertMessageForEntity(): void
+	{
+		if ($this->action == null) {
+			$this->action = 'updated';
+		}
+
+		if (!isset($this->title)) {
+			$this->title = trans("alert::messages.$this->entity.$this->action.title", $this->langParameters);
+		}
+
+		if (!isset($this->description)) {
+			$this->description = trans("alert::messages.$this->entity.$this->action.description", $this->langParameters);
+		}
+	}
+
 	protected function setDefaultAlertMessageIfNotSupplied(): void
 	{
 		if (!isset($this->title)) {
@@ -165,6 +191,8 @@ class Alert
 	{
 		if ($this->model != null) {
 			$this->customizeAlertMessageForModel();
+		} else if ($this->entity != null) {
+			$this->customizeAlertMessageForEntity();
 		} else {
 			$this->setDefaultAlertMessageIfNotSupplied();
 		}

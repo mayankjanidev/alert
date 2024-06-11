@@ -151,4 +151,43 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('alert::messages.model.custom_action.title');
         $component->assertSee('alert::messages.model.custom_action.description');
     }
+
+    public function test_entity_alert_component_renders()
+    {
+        Alert::for('settings')->title('Title')->description('Description')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('Title');
+        $component->assertSee('Description');
+    }
+
+    public function test_entity_alert_uses_correct_lang_values()
+    {
+        Alert::for('settings')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('alert::messages.settings.updated.title');
+        $component->assertSee('alert::messages.settings.updated.description');
+    }
+
+    public function test_entity_alert_uses_correct_lang_values_for_custom_action()
+    {
+        Alert::for('settings')->action('custom_action')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('alert::messages.settings.custom_action.title');
+        $component->assertSee('alert::messages.settings.custom_action.description');
+    }
 }

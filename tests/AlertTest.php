@@ -153,4 +153,44 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $this->assertSame($alert->getTitle(), 'alert::messages.model.custom_action.title');
         $this->assertSame($alert->getDescription(), 'alert::messages.model.custom_action.description');
     }
+
+    public function test_entity_alert_works_for_default_action()
+    {
+        Alert::for('settings')->title('Title')->description('Description')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getTitle(), 'Title');
+        $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getAction(), 'updated');
+    }
+
+    public function test_entity_alert_works_for_custom_action()
+    {
+        Alert::for('settings')->action('custom_action')->title('Title')->description('Description')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getTitle(), 'Title');
+        $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getAction(), 'custom_action');
+    }
+
+    public function test_entity_alert_uses_correct_lang_values_for_default_action()
+    {
+        Alert::for('settings')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getTitle(), 'alert::messages.settings.updated.title');
+        $this->assertSame($alert->getDescription(), 'alert::messages.settings.updated.description');
+    }
+
+    public function test_entity_alert_uses_correct_lang_values_for_custom_action()
+    {
+        Alert::for('settings')->action('custom_action')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getTitle(), 'alert::messages.settings.custom_action.title');
+        $this->assertSame($alert->getDescription(), 'alert::messages.settings.custom_action.description');
+    }
 }
