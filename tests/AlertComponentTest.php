@@ -9,9 +9,6 @@ use Mayank\Alert\Alert;
 use Mayank\Alert\View\Components\AlertComponent;
 use Mayank\Alert\View\Components\AlertLayoutComponent;
 
-use Mockery;
-use Mockery\MockInterface;
-
 class AlertComponentTest extends \Orchestra\Testbench\TestCase
 {
     use InteractsWithViews;
