@@ -197,6 +197,6 @@ class Alert
 			$this->setDefaultAlertMessageIfNotSupplied();
 		}
 
-		Session::flash('alert', array('title' => $this->getTitle(), 'description' => $this->getDescription(), 'type' => $this->getType(), 'action' => $this->getAction()));
+		Session::flash('alert', array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action));
 	}
 }
