@@ -20,6 +20,8 @@ class Alert
 
 	protected array $langParameters = [];
 
+	public const DEFAULT_TITLE = 'Alert Message';
+
 	private function __construct(string $type)
 	{
 		$this->type = $type;
@@ -152,7 +154,7 @@ class Alert
 			if ($this->entity != null) {
 				$this->title = trans("alert::messages.$this->entity.$this->action.title", $this->langParameters);
 			} else {
-				$this->title = 'Alert Message';
+				$this->title = self::DEFAULT_TITLE;
 			}
 		}
 

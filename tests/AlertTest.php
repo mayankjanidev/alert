@@ -54,6 +54,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::info()->title('Title')->flash();
         $alert = Alert::current();
 
+        $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), null);
         $this->assertTrue(Alert::exists());
     }
@@ -63,7 +64,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::info()->flash();
         $alert = Alert::current();
 
-        $this->assertNotEmpty($alert->getTitle());
+        $this->assertSame($alert->getTitle(), Alert::DEFAULT_TITLE);
         $this->assertTrue(Alert::exists());
     }
 
@@ -143,10 +144,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Post Deleted');
         $this->assertSame($alert->getDescription(), 'Post was successfully deleted.');
-    }
 
-    public function test_model_alert_uses_correct_lang_values_for_custom_action()
-    {
         Alert::model($this->getCreatedModel())->action('custom_action')->flash();
         $alert = Alert::current();
 
@@ -176,17 +174,14 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $this->assertSame($alert->getAction(), 'custom_action');
     }
 
-    public function test_entity_alert_uses_correct_lang_values_for_default_action()
+    public function test_entity_alert_uses_correct_lang_values()
     {
         Alert::for('settings')->flash();
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'alert::messages.settings.updated.title');
         $this->assertSame($alert->getDescription(), 'alert::messages.settings.updated.description');
-    }
 
-    public function test_entity_alert_uses_correct_lang_values_for_custom_action()
-    {
         Alert::for('settings')->action('custom_action')->flash();
         $alert = Alert::current();
 

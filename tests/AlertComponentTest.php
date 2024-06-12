@@ -76,6 +76,18 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Title');
     }
 
+    public function test_alert_component_renders_without_title_and_description()
+    {
+        Alert::info()->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee(Alert::DEFAULT_TITLE);
+    }
+
     public function test_alert_component_does_not_render_without_alert_message()
     {
         $component = $this
@@ -93,7 +105,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $this->assertFalse($layoutComponent->shouldRender());
     }
 
-    public function test_model_alert_component_renders()
+    public function test_model_alert_component_renders_for_default_actions()
     {
         Alert::model($this->getCreatedModel())->title('Title')->description('Description')->flash();
 
@@ -104,9 +116,42 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
 
         $component->assertSee('Title');
         $component->assertSee('Description');
+
+        Alert::model($this->getUpdatedModel())->title('Title')->description('Description')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('Title');
+        $component->assertSee('Description');
+
+        Alert::model($this->getDeletedModel())->title('Title')->description('Description')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('Title');
+        $component->assertSee('Description');
     }
 
-    public function test_model_alert_uses_correct_lang_values()
+    public function test_model_alert_component_renders_for_custom_action()
+    {
+        Alert::model($this->getCreatedModel())->action('custom_action')->title('Title')->description('Description')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('Title');
+        $component->assertSee('Description');
+    }
+
+    public function test_model_alert_component_uses_correct_lang_values()
     {
         Alert::model($this->getCreatedModel())->flash();
 
@@ -137,10 +182,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
 
         $component->assertSee('Post Deleted');
         $component->assertSee('Post was successfully deleted.');
-    }
 
-    public function test_model_alert_uses_correct_lang_values_for_custom_action()
-    {
         Alert::model($this->getCreatedModel())->action('custom_action')->flash();
 
         $component = $this
@@ -152,7 +194,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('alert::messages.model.custom_action.description');
     }
 
-    public function test_entity_alert_component_renders()
+    public function test_entity_alert_component_renders_for_default_action()
     {
         Alert::for('settings')->title('Title')->description('Description')->flash();
 
@@ -165,7 +207,20 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Description');
     }
 
-    public function test_entity_alert_uses_correct_lang_values()
+    public function test_entity_alert_component_renders_for_custom_action()
+    {
+        Alert::for('settings')->action('custom_action')->title('Title')->description('Description')->flash();
+
+        $component = $this
+            ->component(
+                AlertComponent::class,
+            );
+
+        $component->assertSee('Title');
+        $component->assertSee('Description');
+    }
+
+    public function test_entity_alert_component_uses_correct_lang_values()
     {
         Alert::for('settings')->flash();
 
@@ -176,10 +231,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
 
         $component->assertSee('alert::messages.settings.updated.title');
         $component->assertSee('alert::messages.settings.updated.description');
-    }
 
-    public function test_entity_alert_uses_correct_lang_values_for_custom_action()
-    {
         Alert::for('settings')->action('custom_action')->flash();
 
         $component = $this
