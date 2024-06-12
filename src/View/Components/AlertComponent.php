@@ -21,7 +21,7 @@ class AlertComponent extends Component
             $alertType = $alert->getType();
 
         else
-            $alertType = 'info';
+            $alertType = 'success';
 
         return view("alert::components.$alertType");
     }

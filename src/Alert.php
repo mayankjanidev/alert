@@ -12,7 +12,7 @@ class Alert
 
 	protected ?string $description;
 
-	protected string $type = 'info';
+	protected string $type = 'success';
 
 	protected ?string $action = null;
 
