@@ -34,27 +34,27 @@ class Alert
 
 	public static function info(): static
 	{
-		return new static('info');
+		return new static(AlertType::info->value);
 	}
 
 	public static function success(): static
 	{
-		return new static('success');
+		return new static(AlertType::success->value);
 	}
 
 	public static function warning(): static
 	{
-		return new static('warning');
+		return new static(AlertType::warning->value);
 	}
 
 	public static function failure(): static
 	{
-		return new static('failure');
+		return new static(AlertType::failure->value);
 	}
 
 	public static function model(Model $model, array $langParameters = []): static
 	{
-		$alert = new static('success');
+		$alert = static::success();
 
 		$modelName = class_basename($model);
 		$entity = Str::snake($modelName);
@@ -76,7 +76,8 @@ class Alert
 
 	public static function for(string $entity, array $langParameters = []): static
 	{
-		$alert = new static('success');
+		$alert = static::success();
+
 		$alert->entity = Str::snake($entity);
 		$alert->action = 'updated';
 		$alert->langParameters = $langParameters;

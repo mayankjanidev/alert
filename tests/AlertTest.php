@@ -6,6 +6,7 @@ use Mayank\Alert\ServiceProvider;
 use Mayank\Alert\Tests\Models\SampleModelInstances;
 
 use Mayank\Alert\Alert;
+use Mayank\Alert\AlertType;
 
 class AlertTest extends \Orchestra\Testbench\TestCase
 {
@@ -25,28 +26,28 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'info');
+        $this->assertSame($alert->getType(), AlertType::info->value);
 
         Alert::success()->title('Title')->description('Description')->flash();
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
 
         Alert::warning()->title('Title')->description('Description')->flash();
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'warning');
+        $this->assertSame($alert->getType(), AlertType::warning->value);
 
         Alert::failure()->title('Title')->description('Description')->flash();
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'failure');
+        $this->assertSame($alert->getType(), AlertType::failure->value);
     }
 
     public function test_alert_works_without_description()
@@ -94,7 +95,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'created');
 
         Alert::model($this->getUpdatedModel())->title('Title')->description('Description')->flash();
@@ -102,7 +103,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'updated');
 
         Alert::model($this->getDeletedModel())->title('Title')->description('Description')->flash();
@@ -110,7 +111,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'deleted');
     }
 
@@ -121,7 +122,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'custom_action');
     }
 
@@ -159,7 +160,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'updated');
     }
 
@@ -170,7 +171,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
-        $this->assertSame($alert->getType(), 'success');
+        $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'custom_action');
     }
 
