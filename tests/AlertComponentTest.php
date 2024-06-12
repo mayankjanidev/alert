@@ -160,8 +160,8 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
                 AlertComponent::class,
             );
 
-        $component->assertSee('Post Created');
-        $component->assertSee('Post was successfully created.');
+        $component->assertSee('Post was created.');
+        $component->assertDontSee('alert::messages.model.created.description');
 
         Alert::model($this->getUpdatedModel())->flash();
 
@@ -170,8 +170,8 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
                 AlertComponent::class,
             );
 
-        $component->assertSee('Post Updated');
-        $component->assertSee('Post was successfully updated.');
+        $component->assertSee('Post was updated.');
+        $component->assertDontSee('alert::messages.model.updated.description');
 
         Alert::model($this->getDeletedModel())->flash();
 
@@ -180,8 +180,8 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
                 AlertComponent::class,
             );
 
-        $component->assertSee('Post Deleted');
-        $component->assertSee('Post was successfully deleted.');
+        $component->assertSee('Post was deleted.');
+        $component->assertDontSee('alert::messages.model.deleted.description');
 
         Alert::model($this->getCreatedModel())->action('custom_action')->flash();
 
@@ -191,7 +191,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
             );
 
         $component->assertSee('alert::messages.model.custom_action.title');
-        $component->assertSee('alert::messages.model.custom_action.description');
+        $component->assertDontSee('alert::messages.model.custom_action.description');
     }
 
     public function test_entity_alert_component_renders_for_default_action()
@@ -230,7 +230,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
             );
 
         $component->assertSee('alert::messages.settings.updated.title');
-        $component->assertSee('alert::messages.settings.updated.description');
+        $component->assertDontSee('alert::messages.settings.updated.description');
 
         Alert::for('settings')->action('custom_action')->flash();
 
@@ -240,6 +240,6 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
             );
 
         $component->assertSee('alert::messages.settings.custom_action.title');
-        $component->assertSee('alert::messages.settings.custom_action.description');
+        $component->assertDontSee('alert::messages.settings.custom_action.description');
     }
 }

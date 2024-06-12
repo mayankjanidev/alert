@@ -160,26 +160,26 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::model($this->getCreatedModel())->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Post Created');
-        $this->assertSame($alert->getDescription(), 'Post was successfully created.');
+        $this->assertSame($alert->getTitle(), 'Post was created.');
+        $this->assertSame($alert->getDescription(), null);
 
         Alert::model($this->getUpdatedModel())->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Post Updated');
-        $this->assertSame($alert->getDescription(), 'Post was successfully updated.');
+        $this->assertSame($alert->getTitle(), 'Post was updated.');
+        $this->assertSame($alert->getDescription(), null);
 
         Alert::model($this->getDeletedModel())->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Post Deleted');
-        $this->assertSame($alert->getDescription(), 'Post was successfully deleted.');
+        $this->assertSame($alert->getTitle(), 'Post was deleted.');
+        $this->assertSame($alert->getDescription(), null);
 
         Alert::model($this->getCreatedModel())->action('custom_action')->flash();
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'alert::messages.model.custom_action.title');
-        $this->assertSame($alert->getDescription(), 'alert::messages.model.custom_action.description');
+        $this->assertSame($alert->getDescription(), null);
     }
 
     public function test_entity_alert_works_for_default_action()
@@ -221,12 +221,12 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'alert::messages.settings.updated.title');
-        $this->assertSame($alert->getDescription(), 'alert::messages.settings.updated.description');
+        $this->assertSame($alert->getDescription(), null);
 
         Alert::for('settings')->action('custom_action')->flash();
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), 'alert::messages.settings.custom_action.title');
-        $this->assertSame($alert->getDescription(), 'alert::messages.settings.custom_action.description');
+        $this->assertSame($alert->getDescription(), null);
     }
 }

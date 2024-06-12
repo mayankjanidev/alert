@@ -175,7 +175,8 @@ class Alert
 
 		if (!isset($this->description)) {
 			if ($this->entity != null) {
-				$this->description = trans("alert::messages.$this->entity.$this->action.description", $this->langParameters);
+				$langKey = "alert::messages.$this->entity.$this->action.description";
+				$this->description = trans()->has($langKey) ? trans($langKey, $this->langParameters) : null;
 			} else {
 				$this->description = null;
 			}
