@@ -126,6 +126,17 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $this->assertSame($alert->getAction(), 'custom_action');
     }
 
+    public function test_model_alert_works_for_custom_type()
+    {
+        Alert::model($this->getCreatedModel())->type('custom_type')->title('Title')->description('Description')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getTitle(), 'Title');
+        $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getType(), 'custom_type');
+        $this->assertSame($alert->getAction(), 'created');
+    }
+
     public function test_model_alert_uses_correct_lang_values()
     {
         Alert::model($this->getCreatedModel())->flash();
@@ -173,6 +184,17 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $this->assertSame($alert->getDescription(), 'Description');
         $this->assertSame($alert->getType(), AlertType::success->value);
         $this->assertSame($alert->getAction(), 'custom_action');
+    }
+
+    public function test_entity_alert_works_for_custom_type()
+    {
+        Alert::for('settings')->type('custom_type')->title('Title')->description('Description')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getTitle(), 'Title');
+        $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getType(), 'custom_type');
+        $this->assertSame($alert->getAction(), 'updated');
     }
 
     public function test_entity_alert_uses_correct_lang_values()
