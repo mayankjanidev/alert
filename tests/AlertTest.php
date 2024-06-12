@@ -26,6 +26,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getMeta(), []);
         $this->assertSame($alert->getType(), AlertType::info->value);
 
         Alert::success()->title('Title')->description('Description')->flash();
@@ -33,6 +34,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getMeta(), []);
         $this->assertSame($alert->getType(), AlertType::success->value);
 
         Alert::warning()->title('Title')->description('Description')->flash();
@@ -40,6 +42,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getMeta(), []);
         $this->assertSame($alert->getType(), AlertType::warning->value);
 
         Alert::failure()->title('Title')->description('Description')->flash();
@@ -47,6 +50,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), 'Title');
         $this->assertSame($alert->getDescription(), 'Description');
+        $this->assertSame($alert->getMeta(), []);
         $this->assertSame($alert->getType(), AlertType::failure->value);
     }
 
@@ -66,6 +70,20 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->getTitle(), Alert::DEFAULT_TITLE);
+        $this->assertTrue(Alert::exists());
+    }
+
+    public function test_alert_works_with_metadata()
+    {
+        $meta = [
+            'is_active' => true,
+            'link' => 'https://example.com'
+        ];
+
+        Alert::info()->meta($meta)->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->getMeta(), $meta);
         $this->assertTrue(Alert::exists());
     }
 

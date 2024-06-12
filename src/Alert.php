@@ -16,6 +16,8 @@ class Alert
 
 	protected ?string $action = null;
 
+	protected array $meta = [];
+
 	protected ?string $entity = null;
 
 	protected array $langParameters = [];
@@ -96,6 +98,7 @@ class Alert
 		$alert->title = $sessionAlert['title'];
 		$alert->description = $sessionAlert['description'];
 		$alert->action = $sessionAlert['action'];
+		$alert->meta = $sessionAlert['meta'];
 
 		return $alert;
 	}
@@ -129,6 +132,12 @@ class Alert
 		return $this;
 	}
 
+	public function meta(array $meta): self
+	{
+		$this->meta = $meta;
+		return $this;
+	}
+
 	public function getTitle(): string
 	{
 		return $this->title;
@@ -147,6 +156,11 @@ class Alert
 	public function getAction(): ?string
 	{
 		return $this->action;
+	}
+
+	public function getMeta(): array
+	{
+		return $this->meta;
 	}
 
 	protected function setAlertMessageIfNotProvided(): void
@@ -172,6 +186,6 @@ class Alert
 	{
 		$this->setAlertMessageIfNotProvided();
 
-		Session::flash('alert', array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action));
+		Session::flash('alert', array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action, 'meta' => $this->meta));
 	}
 }
