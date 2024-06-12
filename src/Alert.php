@@ -16,8 +16,6 @@ class Alert
 
 	protected ?string $action = null;
 
-	protected ?Model $model = null;
-
 	protected ?string $entity = null;
 
 	protected array $langParameters = [];
@@ -55,8 +53,21 @@ class Alert
 	public static function model(Model $model, array $langParameters = []): static
 	{
 		$alert = new static('success');
-		$alert->model = $model;
+
+		$modelName = class_basename($model);
+		$entity = Str::snake($modelName);
+		$alert->entity = trans()->has("alert::messages.$entity") ? $entity : 'model';
+
+		if ($model->wasRecentlyCreated) {
+			$alert->action = 'created';
+		} else if (!$model->exists) {
+			$alert->action = 'deleted';
+		} else {
+			$alert->action = 'updated';
+		}
+
 		$alert->langParameters = $langParameters;
+		$alert->langParameters['model_name'] = $modelName;
 
 		return $alert;
 	}
@@ -65,6 +76,7 @@ class Alert
 	{
 		$alert = new static('success');
 		$alert->entity = Str::snake($entity);
+		$alert->action = 'updated';
 		$alert->langParameters = $langParameters;
 
 		return $alert;
@@ -134,68 +146,28 @@ class Alert
 		return $this->action;
 	}
 
-	protected function customizeAlertMessageForModel(): void
+	protected function setAlertMessageIfNotProvided(): void
 	{
-		$modelName = class_basename($this->model);
-		$modelNameSnakeCase = Str::snake($modelName);
-		$modelNameSnakeCase = trans()->has("alert::messages.$modelNameSnakeCase") ? $modelNameSnakeCase : 'model';
-
-		if ($this->action == null) {
-			if ($this->model->wasRecentlyCreated) {
-				$this->action = 'created';
-			} else if (!$this->model->exists) {
-				$this->action = 'deleted';
+		if (!isset($this->title)) {
+			if ($this->entity != null) {
+				$this->title = trans("alert::messages.$this->entity.$this->action.title", $this->langParameters);
 			} else {
-				$this->action = 'updated';
+				$this->title = 'Alert Message';
 			}
 		}
 
-		$this->langParameters['model_name'] = $modelName;
-
-		if (!isset($this->title)) {
-			$this->title = trans("alert::messages.$modelNameSnakeCase.$this->action.title", $this->langParameters);
-		}
-
 		if (!isset($this->description)) {
-			$this->description = trans("alert::messages.$modelNameSnakeCase.$this->action.description", $this->langParameters);
-		}
-	}
-
-	protected function customizeAlertMessageForEntity(): void
-	{
-		if ($this->action == null) {
-			$this->action = 'updated';
-		}
-
-		if (!isset($this->title)) {
-			$this->title = trans("alert::messages.$this->entity.$this->action.title", $this->langParameters);
-		}
-
-		if (!isset($this->description)) {
-			$this->description = trans("alert::messages.$this->entity.$this->action.description", $this->langParameters);
-		}
-	}
-
-	protected function setDefaultAlertMessageIfNotSupplied(): void
-	{
-		if (!isset($this->title)) {
-			$this->title = 'Alert Message';
-		}
-
-		if (!isset($this->description)) {
-			$this->description = null;
+			if ($this->entity != null) {
+				$this->description = trans("alert::messages.$this->entity.$this->action.description", $this->langParameters);
+			} else {
+				$this->description = null;
+			}
 		}
 	}
 
 	public function flash(): void
 	{
-		if ($this->model != null) {
-			$this->customizeAlertMessageForModel();
-		} else if ($this->entity != null) {
-			$this->customizeAlertMessageForEntity();
-		} else {
-			$this->setDefaultAlertMessageIfNotSupplied();
-		}
+		$this->setAlertMessageIfNotProvided();
 
 		Session::flash('alert', array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action));
 	}
