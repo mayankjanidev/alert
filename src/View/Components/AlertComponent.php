@@ -8,6 +8,12 @@ use Mayank\Alert\Alert;
 
 class AlertComponent extends Component
 {
+    public string $title = '';
+
+    public ?string $description = null;
+
+    public string $type = 'success';
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -17,13 +23,13 @@ class AlertComponent extends Component
     {
         $alert = Alert::current();
 
-        if ($alert != null)
-            $alertType = $alert->getType();
+        if ($alert != null) {
+            $this->title = $alert->getTitle();
+            $this->description = $alert->getDescription();
+            $this->type = $alert->getType();
+        }
 
-        else
-            $alertType = 'success';
-
-        return view("alert::components.$alertType");
+        return view("alert::components.$this->type");
     }
 
     public function shouldRender(): bool

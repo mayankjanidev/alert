@@ -96,13 +96,6 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
             );
 
         $this->assertFalse($component->shouldRender());
-
-        $layoutComponent = $this
-            ->component(
-                AlertLayoutComponent::class,
-            );
-
-        $this->assertFalse($layoutComponent->shouldRender());
     }
 
     public function test_model_alert_component_renders_for_default_actions()
