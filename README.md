@@ -27,6 +27,9 @@ Show the alert using the blade component:
 
 ```php
 <x-alert />
+
+// if needed, add your own classes
+<x-alert class="mb-4 max-w-lg" />
 ```
 
 Customize the alert message:
@@ -90,7 +93,7 @@ $post = $post->save();
 Alert::model($post)->flash();
 ```
 
-This will output "Post was successfully updated".
+This will output "Post was successfully updated.".
 
 Similar messages will be shown for the created and deleted events. It will automatically detect the state of your model.
 
@@ -223,3 +226,17 @@ You can add additional meta data to an alert. Good use cases could be links.
 ```php
 Alert::for('order')->action('completed')->meta(['track_order_link' => 'https://example.com'])->flash();
 ```
+
+## JS Frameworks
+
+Though this package does not supply any js components for frameworks like vue or react, you can still use the alert data to build your own component.
+
+Use the `json()` method to get the current alert data in a json object.
+
+```php
+<alert :alert="{{ Alert::json() }}"></alert>
+```
+
+## License
+
+This package is released under the [MIT License](LICENSE).
