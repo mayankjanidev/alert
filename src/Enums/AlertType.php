@@ -1,6 +1,6 @@
 <?php
 
-namespace Mayank\Alert;
+namespace Mayank\Alert\Enums;
 
 enum AlertType: string
 {

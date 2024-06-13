@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
+use Mayank\Alert\Enums\AlertType;
+
 class Alert
 {
 	protected ?string $title;

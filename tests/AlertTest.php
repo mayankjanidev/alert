@@ -6,7 +6,7 @@ use Mayank\Alert\ServiceProvider;
 use Mayank\Alert\Tests\Models\SampleModelInstances;
 
 use Mayank\Alert\Alert;
-use Mayank\Alert\AlertType;
+use Mayank\Alert\Enums\AlertType;
 
 class AlertTest extends \Orchestra\Testbench\TestCase
 {
