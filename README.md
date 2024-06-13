@@ -49,6 +49,7 @@ Alert::info()->title('Account Updated')->description('Your profile details were 
 Though completely optional, you can publish the config file to customize the below settings:
 
 -   `session_key` is used to set alert message in the session. Default is `alert`.
+-   `theme` is used to set the styling for alert message. Default is `default`.
 
 ```php
 php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=config
@@ -65,7 +66,30 @@ php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=views
 
 ### TailwindCSS
 
-If you already have TailwindCSS installed, this package provides Tailwind specific design that you can customize.
+If you already have TailwindCSS installed, this package provides Tailwind specific design.
+
+Update the config to switch to Tailwind.
+
+```php
+// config/alert.php
+
+return [
+    'theme' => 'tailwind'
+];
+```
+
+Also add the path to the tailwind config so it does not purge the classes when building the app.css file.
+
+```javascript
+// tailwind.config.js
+
+content: [
+    ...
+    "./vendor/mayankjanidev/alert-for-laravel/resources/views/components/tailwind/*.blade.php",
+],
+```
+
+You can also customize Tailwind design by publishing its views:
 
 ```php
 php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=tailwind

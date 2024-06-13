@@ -3,6 +3,7 @@
 namespace Mayank\Alert\View\Components;
 
 use Illuminate\View\Component;
+use Mayank\Alert\AlertConfig;
 
 class AlertLayoutComponent extends Component
 {
@@ -22,10 +23,11 @@ class AlertLayoutComponent extends Component
      */
     public function render()
     {
-        if (view()->exists('alert::components.layout'))
+        if (view()->exists('alert::components.layout')) {
             return view('alert::components.layout');
-
-        else
-            return view('alert::components.default.layout');
+        } else {
+            $theme = AlertConfig::getTheme()->value;
+            return view("alert::components.$theme.layout");
+        }
     }
 }

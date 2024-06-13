@@ -11,6 +11,19 @@ return [
     |
     */
 
-    'session_key' => 'alert'
+    'session_key' => 'alert',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Theme
+    |--------------------------------------------------------------------------
+    |
+    | Styling used by the alert
+    |
+    | Supported: "default", "tailwind"
+    |
+    */
+
+    'theme' => 'default'
 
 ];
