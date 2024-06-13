@@ -89,7 +89,7 @@ class Alert
 
 	public static function current(): ?static
 	{
-		$sessionAlert = Session::get('alert');
+		$sessionAlert = Session::get(AlertConfig::getSessionKey());
 
 		if ($sessionAlert == null)
 			return null;
@@ -105,7 +105,7 @@ class Alert
 
 	public static function exists(): bool
 	{
-		return Session::has('alert');
+		return Session::has(AlertConfig::getSessionKey());
 	}
 
 	public function title(string $title): self
@@ -187,7 +187,7 @@ class Alert
 	{
 		$this->setAlertMessageIfNotProvided();
 
-		Session::flash('alert', array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action, 'meta' => $this->meta));
+		Session::flash(AlertConfig::getSessionKey(), array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action, 'meta' => $this->meta));
 	}
 
 	public function toArray(): array

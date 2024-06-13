@@ -15,6 +15,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__ . '/../config/alert.php' => config_path('alert.php'),
+        ], 'config');
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'alert');
 
         $this->publishes([

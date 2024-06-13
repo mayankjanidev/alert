@@ -44,6 +44,16 @@ Add a title to your alerts (optional):
 Alert::info()->title('Account Updated')->description('Your profile details were successfully updated.')->flash();
 ```
 
+## Config
+
+Though completely optional, you can publish the config file to customize the below settings:
+
+-   `session_key` is used to set alert message in the session. Default is `alert`.
+
+```php
+php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=config
+```
+
 ## Styling
 
 This package does not depend on any external css or js and should work out of the box without any setup.
