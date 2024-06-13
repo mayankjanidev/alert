@@ -4,8 +4,8 @@ Create customizable UI alerts in Laravel.
 
 ## Requirements
 
-- PHP >= 8.1
-- Laravel >= 9.0
+-   PHP >= 8.1
+-   Laravel >= 9.0
 
 ## Installation
 
@@ -33,14 +33,16 @@ Show the alert using the blade component:
 ```
 
 Customize the alert message:
+
 ```php
 Alert::info()->description('Profile updated.')->flash();
 ```
+
 Add a title to your alerts (optional):
+
 ```php
 Alert::info()->title('Account Updated')->description('Your profile details were successfully updated.')->flash();
 ```
-
 
 ## Styling
 
@@ -48,8 +50,9 @@ This package does not depend on any external css or js and should work out of th
 However, you can customize the default design by publishing the views.
 
 ```php
-php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=views   
+php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=views
 ```
+
 ### TailwindCSS
 
 If you already have TailwindCSS installed, this package provides Tailwind specific design that you can customize.
@@ -217,6 +220,7 @@ return [
     ]
 ];
 ```
+
 All the model alert features like lang files, custom actions and lang parameters behave the same way for custom entity alerts.
 
 ## Meta Data
