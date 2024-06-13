@@ -6,6 +6,8 @@ use Illuminate\View\Component;
 
 class AlertLayoutComponent extends Component
 {
+    public $icon = null;
+
     public function __construct(
         public string $title,
         public ?string $description,
