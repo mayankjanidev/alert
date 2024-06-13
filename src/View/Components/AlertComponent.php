@@ -29,7 +29,11 @@ class AlertComponent extends Component
             $this->type = $alert->getType();
         }
 
-        return view("alert::components.$this->type");
+        if (view()->exists("alert::components.$this->type"))
+            return view("alert::components.$this->type");
+
+        else
+            return view("alert::components.default.$this->type");
     }
 
     public function shouldRender(): bool

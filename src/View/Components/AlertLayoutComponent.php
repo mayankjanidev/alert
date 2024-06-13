@@ -22,6 +22,10 @@ class AlertLayoutComponent extends Component
      */
     public function render()
     {
-        return view('alert::components.layout');
+        if (view()->exists('alert::components.layout'))
+            return view('alert::components.layout');
+
+        else
+            return view('alert::components.default.layout');
     }
 }
