@@ -189,4 +189,36 @@ class Alert
 
 		Session::flash('alert', array('title' => $this->title, 'description' => $this->description, 'type' => $this->type, 'action' => $this->action, 'meta' => $this->meta));
 	}
+
+	public function toArray(): array
+	{
+		return [
+			'title' => $this->title ?? self::DEFAULT_TITLE,
+			'description' => $this->description ?? null,
+			'type' => $this->type,
+			'action' => $this->action,
+			'meta' => $this->meta,
+		];
+	}
+
+	public function toJson(): string
+	{
+		return json_encode($this->toArray(), JSON_FORCE_OBJECT);
+	}
+
+	public static function array(): array
+	{
+		$alert = static::current();
+
+		if ($alert == null) {
+			return [];
+		}
+
+		return $alert->toArray();
+	}
+
+	public static function json(): string
+	{
+		return json_encode(static::array(), JSON_FORCE_OBJECT);
+	}
 }

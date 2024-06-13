@@ -229,4 +229,166 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $this->assertSame($alert->getTitle(), 'alert::messages.settings.custom_action.title');
         $this->assertSame($alert->getDescription(), null);
     }
+
+    public function test_method_to_array_works()
+    {
+        Alert::info()->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->toArray(), [
+            'title' => Alert::DEFAULT_TITLE,
+            'description' => null,
+            'type' => 'info',
+            'action' => null,
+            'meta' => [],
+        ]);
+
+        Alert::success()->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->toArray(), [
+            'title' => Alert::DEFAULT_TITLE,
+            'description' => null,
+            'type' => 'success',
+            'action' => null,
+            'meta' => [],
+        ]);
+
+        $meta = [
+            'is_active' => true,
+            'link' => 'https://example.com'
+        ];
+
+        Alert::info()->title('Title')->description('Description')->action('custom_action')->meta($meta)->flash();
+        $alert = Alert::current();
+
+        // title, description and meta
+        $this->assertSame($alert->toArray(), [
+            'title' => 'Title',
+            'description' => 'Description',
+            'type' => 'info',
+            'action' => 'custom_action',
+            'meta' => $meta,
+        ]);
+
+        Alert::model($this->getCreatedModel())->flash();
+        $alert = Alert::current();
+
+        // model alert
+        $this->assertSame($alert->toArray(), [
+            'title' => 'Post was created.',
+            'description' => null,
+            'type' => 'success',
+            'action' => 'created',
+            'meta' => [],
+        ]);
+
+        // entity alert
+        Alert::for('settings')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->toArray(), [
+            'title' => 'alert::messages.settings.updated.title',
+            'description' => null,
+            'type' => 'success',
+            'action' => 'updated',
+            'meta' => [],
+        ]);
+    }
+
+    public function test_method_array_works()
+    {
+        $this->assertSame(Alert::array(), []);
+
+        Alert::info()->flash();
+
+        $this->assertSame(Alert::array(), [
+            'title' => Alert::DEFAULT_TITLE,
+            'description' => null,
+            'type' => 'info',
+            'action' => null,
+            'meta' => [],
+        ]);
+    }
+
+    public function test_method_to_json_works()
+    {
+        Alert::info()->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->toJson(), json_encode([
+            'title' => Alert::DEFAULT_TITLE,
+            'description' => null,
+            'type' => 'info',
+            'action' => null,
+            'meta' => [],
+        ], JSON_FORCE_OBJECT));
+
+        Alert::success()->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->toJson(), json_encode([
+            'title' => Alert::DEFAULT_TITLE,
+            'description' => null,
+            'type' => 'success',
+            'action' => null,
+            'meta' => [],
+        ], JSON_FORCE_OBJECT));
+
+        $meta = [
+            'is_active' => true,
+            'link' => 'https://example.com'
+        ];
+
+        Alert::info()->title('Title')->description('Description')->action('custom_action')->meta($meta)->flash();
+        $alert = Alert::current();
+
+        // title, description and meta
+        $this->assertSame($alert->toJson(), json_encode([
+            'title' => 'Title',
+            'description' => 'Description',
+            'type' => 'info',
+            'action' => 'custom_action',
+            'meta' => $meta,
+        ], JSON_FORCE_OBJECT));
+
+        Alert::model($this->getCreatedModel())->flash();
+        $alert = Alert::current();
+
+        // model alert
+        $this->assertSame($alert->toJson(), json_encode([
+            'title' => 'Post was created.',
+            'description' => null,
+            'type' => 'success',
+            'action' => 'created',
+            'meta' => [],
+        ], JSON_FORCE_OBJECT));
+
+        // entity alert
+        Alert::for('settings')->flash();
+        $alert = Alert::current();
+
+        $this->assertSame($alert->toJson(), json_encode([
+            'title' => 'alert::messages.settings.updated.title',
+            'description' => null,
+            'type' => 'success',
+            'action' => 'updated',
+            'meta' => [],
+        ], JSON_FORCE_OBJECT));
+    }
+
+    public function test_method_json_works()
+    {
+        $this->assertSame(Alert::json(), '{}');
+
+        Alert::info()->flash();
+
+        $this->assertSame(Alert::json(), json_encode([
+            'title' => Alert::DEFAULT_TITLE,
+            'description' => null,
+            'type' => 'info',
+            'action' => null,
+            'meta' => [],
+        ], JSON_FORCE_OBJECT));
+    }
 }
