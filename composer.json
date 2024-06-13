@@ -12,7 +12,10 @@
         "laravel": {
             "providers": [
                 "Mayank\\Alert\\ServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Alert": "Mayank\\Alert\\Alert"
+            }
         }
     },
     "require": {
