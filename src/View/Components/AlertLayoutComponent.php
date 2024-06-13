@@ -9,8 +9,8 @@ class AlertLayoutComponent extends Component
     public $icon = null;
 
     public function __construct(
-        public string $title,
-        public ?string $description,
+        public ?string $title,
+        public string $description,
         public string $type
     ) {
     }

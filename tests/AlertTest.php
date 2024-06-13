@@ -54,13 +54,13 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $this->assertSame($alert->getType(), AlertType::failure->value);
     }
 
-    public function test_alert_works_without_description()
+    public function test_alert_works_without_title()
     {
-        Alert::info()->title('Title')->flash();
+        Alert::info()->description('Description')->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Title');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'Description');
         $this->assertTrue(Alert::exists());
     }
 
@@ -69,7 +69,7 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::info()->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), Alert::DEFAULT_TITLE);
+        $this->assertSame($alert->getDescription(), Alert::DEFAULT_DESCRIPTION);
         $this->assertTrue(Alert::exists());
     }
 
@@ -160,26 +160,26 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::model($this->getCreatedModel())->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Post was created.');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'Post was created.');
 
         Alert::model($this->getUpdatedModel())->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Post was updated.');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'Post was updated.');
 
         Alert::model($this->getDeletedModel())->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'Post was deleted.');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'Post was deleted.');
 
         Alert::model($this->getCreatedModel())->action('custom_action')->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'alert::messages.model.custom_action.title');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'alert::messages.model.custom_action.description');
     }
 
     public function test_entity_alert_works_for_default_action()
@@ -220,14 +220,14 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::for('settings')->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'alert::messages.settings.updated.title');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'alert::messages.settings.updated.description');
 
         Alert::for('settings')->action('custom_action')->flash();
         $alert = Alert::current();
 
-        $this->assertSame($alert->getTitle(), 'alert::messages.settings.custom_action.title');
-        $this->assertSame($alert->getDescription(), null);
+        $this->assertSame($alert->getTitle(), null);
+        $this->assertSame($alert->getDescription(), 'alert::messages.settings.custom_action.description');
     }
 
     public function test_method_to_array_works()
@@ -236,8 +236,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->toArray(), [
-            'title' => Alert::DEFAULT_TITLE,
-            'description' => null,
+            'title' => null,
+            'description' => Alert::DEFAULT_DESCRIPTION,
             'type' => 'info',
             'action' => null,
             'meta' => [],
@@ -247,8 +247,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->toArray(), [
-            'title' => Alert::DEFAULT_TITLE,
-            'description' => null,
+            'title' => null,
+            'description' => Alert::DEFAULT_DESCRIPTION,
             'type' => 'success',
             'action' => null,
             'meta' => [],
@@ -276,8 +276,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         // model alert
         $this->assertSame($alert->toArray(), [
-            'title' => 'Post was created.',
-            'description' => null,
+            'title' => null,
+            'description' => 'Post was created.',
             'type' => 'success',
             'action' => 'created',
             'meta' => [],
@@ -288,8 +288,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->toArray(), [
-            'title' => 'alert::messages.settings.updated.title',
-            'description' => null,
+            'title' => null,
+            'description' => 'alert::messages.settings.updated.description',
             'type' => 'success',
             'action' => 'updated',
             'meta' => [],
@@ -303,8 +303,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::info()->flash();
 
         $this->assertSame(Alert::array(), [
-            'title' => Alert::DEFAULT_TITLE,
-            'description' => null,
+            'title' => null,
+            'description' => Alert::DEFAULT_DESCRIPTION,
             'type' => 'info',
             'action' => null,
             'meta' => [],
@@ -317,8 +317,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->toJson(), json_encode([
-            'title' => Alert::DEFAULT_TITLE,
-            'description' => null,
+            'title' => null,
+            'description' => Alert::DEFAULT_DESCRIPTION,
             'type' => 'info',
             'action' => null,
             'meta' => [],
@@ -328,8 +328,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->toJson(), json_encode([
-            'title' => Alert::DEFAULT_TITLE,
-            'description' => null,
+            'title' => null,
+            'description' => Alert::DEFAULT_DESCRIPTION,
             'type' => 'success',
             'action' => null,
             'meta' => [],
@@ -357,8 +357,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         // model alert
         $this->assertSame($alert->toJson(), json_encode([
-            'title' => 'Post was created.',
-            'description' => null,
+            'title' => null,
+            'description' => 'Post was created.',
             'type' => 'success',
             'action' => 'created',
             'meta' => [],
@@ -369,8 +369,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         $alert = Alert::current();
 
         $this->assertSame($alert->toJson(), json_encode([
-            'title' => 'alert::messages.settings.updated.title',
-            'description' => null,
+            'title' => null,
+            'description' => 'alert::messages.settings.updated.description',
             'type' => 'success',
             'action' => 'updated',
             'meta' => [],
@@ -384,8 +384,8 @@ class AlertTest extends \Orchestra\Testbench\TestCase
         Alert::info()->flash();
 
         $this->assertSame(Alert::json(), json_encode([
-            'title' => Alert::DEFAULT_TITLE,
-            'description' => null,
+            'title' => null,
+            'description' => Alert::DEFAULT_DESCRIPTION,
             'type' => 'info',
             'action' => null,
             'meta' => [],

@@ -14,13 +14,13 @@
 return [
     'model' => [
         'created' => [
-            'title' => ':model_name was created.',
+            'description' => ':model_name was created.',
         ],
         'updated' => [
-            'title' => ':model_name was updated.',
+            'description' => ':model_name was updated.',
         ],
         'deleted' => [
-            'title' => ':model_name was deleted.',
+            'description' => ':model_name was deleted.',
         ]
     ],
 ];

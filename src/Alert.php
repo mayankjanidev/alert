@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alert
 {
-	protected string $title;
+	protected ?string $title;
 
-	protected ?string $description;
+	protected string $description;
 
 	protected string $type = 'success';
 
@@ -22,7 +22,7 @@ class Alert
 
 	protected array $langParameters = [];
 
-	public const DEFAULT_TITLE = 'Alert Message';
+	public const DEFAULT_DESCRIPTION = 'Alert Message';
 
 	private function __construct(string $type)
 	{
@@ -138,12 +138,12 @@ class Alert
 		return $this;
 	}
 
-	public function getTitle(): string
+	public function getTitle(): ?string
 	{
 		return $this->title;
 	}
 
-	public function getDescription(): ?string
+	public function getDescription(): string
 	{
 		return $this->description;
 	}
@@ -167,18 +167,18 @@ class Alert
 	{
 		if (!isset($this->title)) {
 			if ($this->entity != null) {
-				$this->title = trans("alert::messages.$this->entity.$this->action.title", $this->langParameters);
+				$langKey = "alert::messages.$this->entity.$this->action.title";
+				$this->title = trans()->has($langKey) ? trans($langKey, $this->langParameters) : null;
 			} else {
-				$this->title = self::DEFAULT_TITLE;
+				$this->title = null;
 			}
 		}
 
 		if (!isset($this->description)) {
 			if ($this->entity != null) {
-				$langKey = "alert::messages.$this->entity.$this->action.description";
-				$this->description = trans()->has($langKey) ? trans($langKey, $this->langParameters) : null;
+				$this->description = trans("alert::messages.$this->entity.$this->action.description", $this->langParameters);
 			} else {
-				$this->description = null;
+				$this->description = self::DEFAULT_DESCRIPTION;
 			}
 		}
 	}
@@ -193,8 +193,8 @@ class Alert
 	public function toArray(): array
 	{
 		return [
-			'title' => $this->title ?? self::DEFAULT_TITLE,
-			'description' => $this->description ?? null,
+			'title' => $this->title ?? null,
+			'description' => $this->description ?? self::DEFAULT_DESCRIPTION,
 			'type' => $this->type,
 			'action' => $this->action,
 			'meta' => $this->meta,

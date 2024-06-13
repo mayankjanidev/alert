@@ -8,9 +8,9 @@ use Mayank\Alert\Alert;
 
 class AlertComponent extends Component
 {
-    public string $title = '';
+    public ?string $title = null;
 
-    public ?string $description = null;
+    public string $description = '';
 
     public string $type = 'success';
 
