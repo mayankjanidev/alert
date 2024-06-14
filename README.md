@@ -272,7 +272,7 @@ Though this package does not supply any js components for frameworks like vue or
 Use the `json()` method to get the current alert data in a json object.
 
 ```php
-<alert :alert="{{ Alert::json() }}"></alert>
+<alert :message="{{ Alert::json() }}"></alert>
 ```
 
 ## License
