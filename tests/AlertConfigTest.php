@@ -28,10 +28,18 @@ class AlertConfigTest extends \Orchestra\Testbench\TestCase
     {
         $this->assertSame(AlertConfig::getTheme(), AlertTheme::default);
 
-        Config::set('alert.theme', 'tailwind');
-        $this->assertSame(AlertConfig::getTheme(), AlertTheme::tailwind);
+        foreach (AlertTheme::cases() as $alertTheme) {
+            Config::set('alert.theme', $alertTheme->value);
+            $this->assertSame(AlertConfig::getTheme(), $alertTheme);
+        }
 
         Config::set('alert.theme', 'random_invalid');
+        $this->assertSame(AlertConfig::getTheme(), AlertTheme::default);
+
+        Config::set('alert.theme', '');
+        $this->assertSame(AlertConfig::getTheme(), AlertTheme::default);
+
+        Config::set('alert.theme', null);
         $this->assertSame(AlertConfig::getTheme(), AlertTheme::default);
     }
 }
