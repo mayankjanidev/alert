@@ -39,7 +39,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::info()->title('Title')->description('Description')->flash();
+        Alert::info()->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -49,7 +49,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Title');
         $component->assertSee('Description');
 
-        Alert::success()->title('Title')->description('Description')->flash();
+        Alert::success()->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -59,7 +59,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Title');
         $component->assertSee('Description');
 
-        Alert::warning()->title('Title')->description('Description')->flash();
+        Alert::warning()->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -69,7 +69,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Title');
         $component->assertSee('Description');
 
-        Alert::failure()->title('Title')->description('Description')->flash();
+        Alert::failure()->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -86,7 +86,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::info()->title('Title')->flash();
+        Alert::info()->title('Title')->create();
 
         $component = $this
             ->component(
@@ -102,7 +102,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::info()->flash();
+        Alert::info()->create();
 
         $component = $this
             ->component(
@@ -132,7 +132,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::model($this->getCreatedModel())->title('Title')->description('Description')->flash();
+        Alert::model($this->getCreatedModel())->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -142,7 +142,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Title');
         $component->assertSee('Description');
 
-        Alert::model($this->getUpdatedModel())->title('Title')->description('Description')->flash();
+        Alert::model($this->getUpdatedModel())->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -152,7 +152,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Title');
         $component->assertSee('Description');
 
-        Alert::model($this->getDeletedModel())->title('Title')->description('Description')->flash();
+        Alert::model($this->getDeletedModel())->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -169,7 +169,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::model($this->getCreatedModel())->action('custom_action')->title('Title')->description('Description')->flash();
+        Alert::model($this->getCreatedModel())->action('custom_action')->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -186,7 +186,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::model($this->getCreatedModel())->flash();
+        Alert::model($this->getCreatedModel())->create();
 
         $component = $this
             ->component(
@@ -196,7 +196,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Post was created.');
         $component->assertDontSee('alert::messages.model.created.title');
 
-        Alert::model($this->getUpdatedModel())->flash();
+        Alert::model($this->getUpdatedModel())->create();
 
         $component = $this
             ->component(
@@ -206,7 +206,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Post was updated.');
         $component->assertDontSee('alert::messages.model.updated.title');
 
-        Alert::model($this->getDeletedModel())->flash();
+        Alert::model($this->getDeletedModel())->create();
 
         $component = $this
             ->component(
@@ -216,7 +216,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('Post was deleted.');
         $component->assertDontSee('alert::messages.model.deleted.title');
 
-        Alert::model($this->getCreatedModel())->action('custom_action')->flash();
+        Alert::model($this->getCreatedModel())->action('custom_action')->create();
 
         $component = $this
             ->component(
@@ -233,7 +233,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::for('settings')->title('Title')->description('Description')->flash();
+        Alert::for('settings')->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -250,7 +250,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::for('settings')->action('custom_action')->title('Title')->description('Description')->flash();
+        Alert::for('settings')->action('custom_action')->title('Title')->description('Description')->create();
 
         $component = $this
             ->component(
@@ -267,7 +267,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.theme', $alertTheme->value);
         $this->assertSame($alertTheme, AlertConfig::getTheme());
 
-        Alert::for('settings')->flash();
+        Alert::for('settings')->create();
 
         $component = $this
             ->component(
@@ -277,7 +277,7 @@ class AlertComponentTest extends \Orchestra\Testbench\TestCase
         $component->assertSee('alert::messages.settings.updated.description');
         $component->assertDontSee('alert::messages.settings.updated.title');
 
-        Alert::for('settings')->action('custom_action')->flash();
+        Alert::for('settings')->action('custom_action')->create();
 
         $component = $this
             ->component(

@@ -18,7 +18,7 @@ class AlertConfigTest extends \Orchestra\Testbench\TestCase
         Config::set('alert.session_key', 'custom_alert_key');
         $this->assertSame(AlertConfig::getSessionKey(), 'custom_alert_key');
 
-        Alert::info()->flash();
+        Alert::info()->create();
         $this->assertTrue(Session::has(AlertConfig::getSessionKey()));
         $this->assertNotNull(Alert::current());
         $this->assertTrue(Alert::exists());

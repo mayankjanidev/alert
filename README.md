@@ -20,7 +20,7 @@ composer require mayankjanidev/alert-for-laravel
 ```php
 use Mayank\Alert\Alert;
 
-Alert::info()->flash();
+Alert::info()->create();
 ```
 
 Show the alert using the blade component:
@@ -35,13 +35,13 @@ Show the alert using the blade component:
 Customize the alert message:
 
 ```php
-Alert::info()->description('Profile updated.')->flash();
+Alert::info()->description('Profile updated.')->create();
 ```
 
 Add a title to your alerts (optional):
 
 ```php
-Alert::info()->title('Account Updated')->description('Your profile details were successfully updated.')->flash();
+Alert::info()->title('Account Updated')->description('Your profile details were successfully updated.')->create();
 ```
 
 ## Config
@@ -101,10 +101,10 @@ Currently, 4 types are supported: info, success, warning and failure.
 Use them like:
 
 ```php
-Alert::info()->flash();
-Alert::success()->flash();
-Alert::warning()->flash();
-Alert::failure()->flash();
+Alert::info()->create();
+Alert::success()->create();
+Alert::warning()->create();
+Alert::failure()->create();
 ```
 
 ### Custom Alert Types
@@ -112,7 +112,7 @@ Alert::failure()->flash();
 Use the `custom()` method to create your own alert types.
 
 ```php
-Alert::custom('danger')->flash();
+Alert::custom('danger')->create();
 ```
 
 Make sure to create the appropriate view file at `resources.views.vendor.alert.components.danger`
@@ -127,7 +127,7 @@ use App\Models\Post;
 
 $post = $post->save();
 
-Alert::model($post)->flash();
+Alert::model($post)->create();
 ```
 
 This will output "Post was successfully updated.".
@@ -200,7 +200,7 @@ return [
 If you performed a custom action on a model other than create, update or delete, then you can specify it using the `action()` method.
 
 ```php
-Alert::model($post)->action('bookmarked')->flash();
+Alert::model($post)->action('bookmarked')->create();
 ```
 
 ```php
@@ -220,7 +220,7 @@ return [
 Lang parameters are supported:
 
 ```php
-Alert::model($post, ['title' => $post->title])->action('bookmarked')->flash();
+Alert::model($post, ['title' => $post->title])->action('bookmarked')->create();
 ```
 
 ```php
@@ -240,7 +240,7 @@ return [
 If you want the same features of a model alert on a custom entity, use the `for()` method.
 
 ```php
-Alert::for('settings')->action('profile_updated')->flash();
+Alert::for('settings')->action('profile_updated')->create();
 ```
 
 ```php
@@ -262,7 +262,7 @@ All the model alert features like lang files, custom actions and lang parameters
 You can add additional meta data to an alert. Good use cases could be links.
 
 ```php
-Alert::for('order')->action('completed')->meta(['track_order_link' => 'https://example.com'])->flash();
+Alert::for('order')->action('completed')->meta(['track_order_link' => 'https://example.com'])->create();
 ```
 
 ## JS Frameworks

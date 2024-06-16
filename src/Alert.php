@@ -185,7 +185,7 @@ class Alert
 		}
 	}
 
-	public function flash(): void
+	public function create(): void
 	{
 		$this->setAlertMessageIfNotProvided();
 
