@@ -143,7 +143,7 @@ php artisan vendor:publish --provider=Mayank\Alert\ServiceProvider --tag=lang
 ```
 
 ```php
-// lang/en/messages.php
+// lang/vendor/alert/en/messages.php
 
 return [
     'model' => [
@@ -163,7 +163,7 @@ return [
 You can also override text for specific models:
 
 ```php
-// lang/en/messages.php
+// lang/vendor/alert/en/messages.php
 
 return [
     'post' => [
@@ -183,7 +183,7 @@ return [
 Title is also supported for alert models:
 
 ```php
-// lang/en/messages.php
+// lang/vendor/alert/en/messages.php
 
 return [
     'model' => [
@@ -204,7 +204,7 @@ Alert::model($post)->action('bookmarked')->create();
 ```
 
 ```php
-// lang/en/messages.php
+// lang/vendor/alert/en/messages.php
 
 return [
     'post' => [
@@ -224,7 +224,7 @@ Alert::model($post)->action('bookmarked')->lang(['title' => $post->title])->crea
 ```
 
 ```php
-// lang/en/messages.php
+// lang/vendor/alert/en/messages.php
 
 return [
     'post' => [
@@ -244,7 +244,7 @@ Alert::for('settings')->action('profile_updated')->create();
 ```
 
 ```php
-// lang/en/messages.php
+// lang/vendor/alert/en/messages.php
 
 return [
     'settings' => [
