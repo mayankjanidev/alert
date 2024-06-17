@@ -217,10 +217,10 @@ return [
 
 ### Custom lang parameters
 
-Lang parameters are supported:
+Specify lang parameters using the `lang()` method.
 
 ```php
-Alert::model($post, ['title' => $post->title])->action('bookmarked')->create();
+Alert::model($post)->action('bookmarked')->lang(['title' => $post->title])->create();
 ```
 
 ```php

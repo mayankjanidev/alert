@@ -56,7 +56,7 @@ class Alert
 		return new static(AlertType::failure->value);
 	}
 
-	public static function model(Model $model, array $langParameters = []): static
+	public static function model(Model $model): static
 	{
 		$alert = static::success();
 
@@ -72,19 +72,17 @@ class Alert
 			$alert->action = 'updated';
 		}
 
-		$alert->langParameters = $langParameters;
 		$alert->langParameters['model_name'] = $modelName;
 
 		return $alert;
 	}
 
-	public static function for(string $entity, array $langParameters = []): static
+	public static function for(string $entity): static
 	{
 		$alert = static::success();
 
 		$alert->entity = Str::snake($entity);
 		$alert->action = 'updated';
-		$alert->langParameters = $langParameters;
 
 		return $alert;
 	}
@@ -137,6 +135,12 @@ class Alert
 	public function meta(array $meta): self
 	{
 		$this->meta = $meta;
+		return $this;
+	}
+
+	public function lang(array $parameters): self
+	{
+		$this->langParameters = array_merge($parameters, $this->langParameters);
 		return $this;
 	}
 
