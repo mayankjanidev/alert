@@ -1,5 +1,5 @@
 {
-    "name": "mayankjanidev/alert-for-laravel",
+    "name": "mayankjanidev/alert",
     "description": "Create customizable UI alerts in Laravel",
     "license": "MIT",
     "autoload": {
