@@ -12,7 +12,7 @@ Create customizable UI alerts in Laravel.
 Install the package via Composer:
 
 ```sh
-composer require mayankjanidev/alert-for-laravel
+composer require mayankjanidev/alert
 ```
 
 ## Basic Usage
@@ -38,7 +38,7 @@ Customize the alert message:
 Alert::info()->description('Profile updated.')->create();
 ```
 
-![alert_message](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/a5183709-60e5-4827-bc39-2037c2d97043)
+![alert_message](https://github.com/mayankjanidev/alert/assets/64329409/a5183709-60e5-4827-bc39-2037c2d97043)
 
 Add a title to your alerts (optional):
 
@@ -46,7 +46,7 @@ Add a title to your alerts (optional):
 Alert::info()->title('Account Updated')->description('Your profile details were successfully updated.')->create();
 ```
 
-![alert_message_with_title](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/61713579-8bfe-4613-9218-0892eaf55be4)
+![alert_message_with_title](https://github.com/mayankjanidev/alert/assets/64329409/61713579-8bfe-4613-9218-0892eaf55be4)
 
 
 ## Config
@@ -90,7 +90,7 @@ Also add the path to the tailwind config so it does not purge the classes when b
 
 content: [
     ...
-    "./vendor/mayankjanidev/alert-for-laravel/resources/views/components/tailwind/*.blade.php",
+    "./vendor/mayankjanidev/alert/resources/views/components/tailwind/*.blade.php",
 ],
 ```
 
@@ -112,10 +112,10 @@ Alert::warning()->create();
 Alert::failure()->create();
 ```
 
-![alert_message_info](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/210cddd3-c010-464c-9b87-46c199970153)
-![alert_message_success](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/95e864dc-b91f-4683-a73b-a7b02214a0ec)
-![alert_message_warning](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/0452edcd-adee-4da9-88ef-a02aa1f30a04)
-![alert_message_failure](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/7febff2c-2f8c-4f28-8d10-58a98c6c247d)
+![alert_message_info](https://github.com/mayankjanidev/alert/assets/64329409/210cddd3-c010-464c-9b87-46c199970153)
+![alert_message_success](https://github.com/mayankjanidev/alert/assets/64329409/95e864dc-b91f-4683-a73b-a7b02214a0ec)
+![alert_message_warning](https://github.com/mayankjanidev/alert/assets/64329409/0452edcd-adee-4da9-88ef-a02aa1f30a04)
+![alert_message_failure](https://github.com/mayankjanidev/alert/assets/64329409/7febff2c-2f8c-4f28-8d10-58a98c6c247d)
 
 
 ### Custom Alert Types
@@ -143,7 +143,7 @@ Alert::model($post)->create();
 
 This will output "Post was updated.".
 
-![alert_model_updated](https://github.com/mayankjanidev/alert-for-laravel/assets/64329409/c66ec229-e942-4ce0-9767-5187ad569f3e)
+![alert_model_updated](https://github.com/mayankjanidev/alert/assets/64329409/c66ec229-e942-4ce0-9767-5187ad569f3e)
 
 
 Similar messages will be shown for the created and deleted events. It will automatically detect the state of your model.
