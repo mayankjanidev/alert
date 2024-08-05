@@ -2,6 +2,7 @@
 
 namespace Mayank\Alert\Tests;
 
+use Illuminate\Support\Facades\Lang;
 use Mayank\Alert\ServiceProvider;
 use Mayank\Alert\Tests\Models\SampleModelInstances;
 
@@ -180,6 +181,15 @@ class AlertTest extends \Orchestra\Testbench\TestCase
 
         $this->assertSame($alert->getTitle(), null);
         $this->assertSame($alert->getDescription(), 'alert::messages.model.custom_action.description');
+    }
+
+    public function test_model_alert_can_autofill_lang_parameters()
+    {
+        $model = $this->getModelWithAttributes();
+        $alert = Alert::model($model);
+        $alert->create();
+
+        $this->assertSame($alert->getLangParameters()['title'], $model->title);
     }
 
     public function test_entity_alert_works_for_default_action()

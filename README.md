@@ -231,7 +231,8 @@ return [
 
 ### Custom lang parameters
 
-Specify lang parameters using the `lang()` method.
+Lang parameters are autofilled if the model has the attribute with the same name.
+You can still manually specify lang parameters using the `lang()` method.
 
 ```php
 Alert::model($post)->action('bookmarked')->lang(['title' => $post->title])->create();

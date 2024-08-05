@@ -72,6 +72,8 @@ class Alert
 			$alert->action = 'updated';
 		}
 
+		$alert->lang($model->getAttributes());
+
 		$alert->langParameters['model_name'] = $modelName;
 
 		return $alert;
@@ -167,6 +169,11 @@ class Alert
 	public function getMeta(): array
 	{
 		return $this->meta;
+	}
+
+	public function getLangParameters(): array
+	{
+		return $this->langParameters;
 	}
 
 	protected function setAlertMessageIfNotProvided(): void

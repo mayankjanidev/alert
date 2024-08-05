@@ -31,4 +31,12 @@ trait SampleModelInstances
 
         return $post;
     }
+
+    public function getModelWithAttributes(): Post
+    {
+        $post = new Post;
+        $post->title = 'Test Model Title';
+
+        return $post;
+    }
 }
